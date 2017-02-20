@@ -26,10 +26,10 @@ task run(type:JavaExec) {
     main = 'org.chiflink.ctaprocessor.loaders.ctaloader.LoadFixes'
     classpath sourceSets.main.runtimeClasspath
 
-    args "--kafka-zookeeper-host=${project.properties.getOrDefault('kafka-zookeeper-host', 'localhost')}",
-            "--kafka-bootstrap-server=${project.properties.getOrDefault('kafka-bootstrap-server', 'localhost')}",
-            "--kafka-topic=${project.properties.getOrDefault('kafka-topic', 'cta01')}"
-
+    args "--kafka-zookeeper-host=${project.properties.getOrDefault('kafka-zookeeper-host', 'localhost:2181')}",
+            "--kafka-bootstrap-server=${project.properties.getOrDefault('kafka-bootstrap-server', 'localhost:9092')}",
+            "--kafka-topic=${project.properties.getOrDefault('kafka-topic', 'cta01')}",
+            "--input-file=${project.properties.getOrDefault('input-file', '/home/ubuntu/data/20170215.csv')}"
     }
 
 jar {
