@@ -1,0 +1,49 @@
+buildscript {
+
+    ext {
+        versions = [
+                flink: "1.2.0",
+                flinkScalaVersion: '2.11',
+                flinkKafkaVersion: '0.10',
+        ]
+        pluginDeps = [
+
+        ]
+        deps = [
+                flinkClients: "org.apache.flink:flink-clients_${versions.flinkScalaVersion}:${versions.flink}",
+                flinkConnectorKafka: "org.apache.flink:flink-connector-kafka-${versions.flinkKafkaVersion}_${versions.flinkScalaVersion}:${versions.flink}",
+                flinkScala: "org.apache.flink:flink-scala_${versions.flinkScalaVersion}:${versions.flink}",
+                flinkStreamingScala: "org.apache.flink:flink-streaming-scala_${versions.flinkScalaVersion}:${versions.flink}",
+                guava: 'com.google.guava:guava:21.0',
+                jcommander: 'com.beust:jcommander:1.60',
+                junit: 'junit:junit:4.12',
+                scalaStdlib: 'org.scala-lang:scala-library:2.10.1',
+                slf4jApi: 'org.slf4j:slf4j-api:latest.release'
+        ]
+
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'net.saliman:gradle-properties-plugin:1.4.6'
+    }
+
+}
+
+apply plugin: 'base'
+
+//build.dependsOn ':code:interface:api:build'
+
+allprojects {
+    apply plugin: 'net.saliman.properties'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+}
