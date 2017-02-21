@@ -24,16 +24,16 @@ public class LoadFixesArgs extends ExecutionConfig.GlobalJobParameters
 
 
     @Parameter(names = { "--kafka-zookeeper-host" })
-    public String kafkaZookeeperHost = "localhost:2181";
+    public String kafkaZookeeperHost = "127.0.1.1:2181";
 
     @Parameter(names = { "--kafka-bootstrap-server" })
-    public String kafkaBootStrapServer = "localhost:9092";
+    public String kafkaBootStrapServer = "127.0.1.1:9092";
 
     @Parameter(names = { "--kafka-topic" })
     public String kafkaTopic = "cta01";
 
     @Parameter(names = { "--input-file" })
-    public String inputFile = "/home/ubuntu/data/20170215.csv";
+    public String inputFile = "/home/ubuntu/data/20170215.json";
 
     @Override
     protected Object clone() {
