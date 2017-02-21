@@ -11,7 +11,8 @@ import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer010, FlinkKafkaProducer010}
 import org.apache.flink.api.scala._
-import org.chiflink.ctaprocessor.processors.ctaprocessor.models.Fix
+import org.apache.flink.streaming.api.windowing.assigners.GlobalWindows
+import org.chiflink.ctaprocessor.processors.ctaprocessor.models.{Fix, FixTrigger}
 import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
 
 object ProcessFixes {
@@ -38,8 +39,14 @@ object ProcessFixes {
       kafkaProps)
 
     val stream = env.addSource(consumer).name("CTAFixStream")
-      .flatMap(new FixProcessor()).name("CTAFixProcessor")
-      .keyBy(x=>x.pid)
+       .map(new FixProcessor())
+      //.flatMap(new FixProcessor()).name("CTAFixProcessor")
+      .assignTimestampsAndWatermarks(new FixTimeStampAndWatermark())
+      .keyBy(x=>(x.vid))
+      .window(GlobalWindows.create())
+      .trigger(new FixTrigger())
+      .apply(new FixApply())
+
     env.execute("CTAFixStream")
 
   }
