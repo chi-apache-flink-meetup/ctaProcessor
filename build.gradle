@@ -18,7 +18,8 @@ buildscript {
                 jcommander: 'com.beust:jcommander:1.60',
                 junit: 'junit:junit:4.12',
                 scalaStdlib: 'org.scala-lang:scala-library:2.10.1',
-                slf4jApi: 'org.slf4j:slf4j-api:latest.release'
+                slf4jApi: 'org.slf4j:slf4j-api:latest.release',
+                json4s: "org.json4s:json4s-native_${versions.flinkScalaVersion}:3.5.0"
         ]
 
     }

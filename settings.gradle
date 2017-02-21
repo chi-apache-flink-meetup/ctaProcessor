@@ -1,2 +1,3 @@
 rootProject.name = 'ctaProcessor'
 include ':code:loaders:ctaLoader'
+include ':code:processors:ctaProcessor'

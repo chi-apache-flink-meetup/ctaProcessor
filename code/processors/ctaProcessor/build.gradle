@@ -1,5 +1,5 @@
-group 'org.chiflink.ctaProcessor.loaders'
-ext.archivesBaseName = 'cta-loader'
+group 'org.chiflink.ctaProcessor.processors'
+ext.archivesBaseName = 'cta-processor'
 version '1.0-SNAPSHOT'
 
 
@@ -12,6 +12,7 @@ dependencies {
     compile deps.jcommander
     compile deps.scalaStdlib
     compile deps.slf4jApi
+    compile deps.json4s
 
     //testCompile deps.junit
 
@@ -23,17 +24,16 @@ dependencies {
 }
 
 task run(type:JavaExec) {
-    main = 'org.chiflink.ctaprocessor.loaders.ctaloader.LoadFixes'
+    main = 'org.chiflink.ctaprocessor.processors.ctaprocessor.ProcessFixes'
     classpath sourceSets.main.runtimeClasspath
 
     args "--kafka-zookeeper-host=${project.properties.getOrDefault('kafka-zookeeper-host', '127.0.1.1:2181')}",
             "--kafka-bootstrap-server=${project.properties.getOrDefault('kafka-bootstrap-server', '127.0.1.1:9092')}",
-            "--kafka-topic=${project.properties.getOrDefault('kafka-topic', 'cta01')}",
-            "--input-file=${project.properties.getOrDefault('input-file', '/home/ubuntu/data/20170215.json')}"
-    }
+            "--kafka-topic=${project.properties.getOrDefault('kafka-topic', 'cta01')}"
+}
 
 jar {
     manifest {
-        attributes 'Main-Class': 'org.chiflink.ctaprocessor.loaders.ctaloader.LoadFixes'
+        attributes 'Main-Class': 'org.chiflink.ctaprocessor.processors.ctaprocessor.ProcessFixes'
     }
 }
